@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONGRATULATIONS @TofitoSky!</title>
+    <style>
+        /* Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #2e3192, #1bffff);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        
+        /* Контейнер формы */
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            border: 3px solid gold;
+            animation: glow 2s infinite alternate;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+        
+        .container.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px gold, 0 0 30px rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 0 25px gold, 0 0 50px rgba(255, 215, 0, 0.6); }
+        }
+        
+        /* Анимации */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            14% { color: #ff7f00; }
+            28% { color: #ffff00; }
+            42% { color: #00ff00; }
+            57% { color: #0000ff; }
+            71% { color: #4b0082; }
+            85% { color: #9400d3; }
+            100% { color: #ff0000; }
+        }
+        
+        @keyframes shine {
+            0% { background-position: -500%; }
+            100% { background-position: 500%; }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        @keyframes firework {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+        
+        @keyframes inputFocus {
+            from { transform: scale(1); box-shadow: 0 0 0 gold; }
+            to { transform: scale(1.02); box-shadow: 0 0 15px gold; }
+        }
+        
+        @keyframes shineOver {
+            from { transform: translateX(-100%) rotate(30deg); }
+            to { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        /* Элементы интерфейса */
+        .language-switcher {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 20;
+        }
+        
+        .language-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite, float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+            transform-style: preserve-3d;
+        }
+        
+        h1 {
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            font-size: 32px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .winner-name {
+            font-size: 48px;
+            color: #ffde59;
+            text-shadow: 0 0 15px #ffcc00;
+            margin: 20px 0;
+            background: linear-gradient(to right, #ffcc00, #ffde59, #ffffff, #ffde59, #ffcc00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s infinite, float 3s ease-in-out infinite;
+            padding: 0 10px;
+        }
+        
+        .prize-amount {
+            font-size: 72px;
+            font-weight: bold;
+            color: lime;
+            text-shadow: 0 0 20px #00ff00;
+            margin: 30px 0;
+            animation: pulse 1.5s infinite, shake 0.5s ease-in-out infinite;
+        }
+        
+        .currency {
+            font-size: 40px;
+            vertical-align: top;
+            margin-right: 10px;
+            display: inline-block;
+            animation: float 2s ease-in-out infinite;
+        }
+        
+        .verification-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #1da1f2, #00bfff);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-left: 10px;
+            vertical-align: middle;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 10px rgba(29, 161, 242, 0.5);
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        input {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            animation: inputFocus 0.5s ease;
+            box-shadow: 0 0 15px gold;
+            outline: none;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #ffde59, #ffcc00);
+            color: #333;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.6);
+        }
+        
+        button:hover::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(30deg);
+            animation: shineOver 1.5s ease;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ffde59;
+            animation: spin 1s ease-in-out infinite;
+            margin: 20px auto;
+        }
+        
+        .loading-text {
+            animation: rainbow 3s linear infinite;
+            font-weight: bold;
+        }
+        
+        /* Конфетти и фейерверки */
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            opacity: 0;
+            top: 0;
+            animation: confetti 5s ease-in-out forwards;
+            z-index: 5;
+        }
+        
+        .firework {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: firework 1s ease-out forwards;
+            z-index: 5;
+        }
+        
+        /* Загрузка файлов */
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-upload-label {
+            background: linear-gradient(45deg, #ffde59, #ffcc00);
+            color: #333;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-upload-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
+        }
+        
+        .file-name {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #ffde59;
+        }
+        
+        .preview-container {
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .preview-image {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+            border: 2px solid #ffde59;
+            box-shadow: 0 0 15px rgba(255, 222, 89, 0.5);
+        }
+        
+        /* Сообщения об ошибках */
+        .error-message {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+        
+        /* Всплывающее уведомление */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* Сообщение о розыгрыше */
+        .prank-message {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #ff4757;
+            animation: glowPrank 2s infinite alternate;
+        }
+        
+        @keyframes glowPrank {
+            from { box-shadow: 0 0 15px #ff4757, 0 0 30px rgba(255, 71, 87, 0.4); }
+            to { box-shadow: 0 0 25px #ff4757, 0 0 50px rgba(255, 71, 87, 0.6); }
+        }
+        
+        /* Фон с частицами */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Фон с частицами -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Основной контейнер -->
+    <div class="container" id="mainContainer">
+        <div class="language-switcher">
+            <button class="language-btn" id="langSwitch">Русский</button>
+        </div>
+        
+        <img src="Roblox.png" alt="Roblox Logo" class="logo">
+        
+        <div class="winner-name">
+            @TofitoSky <span class="verification-badge">Verified Winner</span>
+        </div>
+        
+        <div class="prize-amount">
+            <span class="currency">$</span>1,000,000 <span class="currency">🤑</span>
+        </div>
+        
+        <p id="instruction">To claim your prize, please verify your identity:</p>
+        
+        <form id="prankForm">
+            <input type="text" id="cardNumber" placeholder="Card number (16 digits)" required maxlength="16">
+            <div id="cardError" class="error-message">Card number must contain 16 digits</div>
+            
+            <input type="text" id="cvv" placeholder="CVV code (3 digits)" required maxlength="3">
+            <div id="cvvError" class="error-message">CVV must contain 3 digits</div>
+            
+            <input type="text" id="expiry" placeholder="Expiry date (MM/YY)" required maxlength="5">
+            <div id="expiryError" class="error-message">Please use MM/YY format</div>
+            
+            <div class="file-upload">
+                <label for="passportInput" class="file-upload-label" id="uploadLabel">Upload passport photo</label>
+                <input type="file" id="passportInput" accept="image/*" required style="display: none;">
+                <div id="fileName" class="file-name"></div>
+            </div>
+            
+            <div class="preview-container" id="previewContainer">
+                <img id="previewImage" class="preview-image" src="#" alt="Passport preview">
+            </div>
+            
+            <button type="submit" id="submitBtn">CLAIM YOUR $1,000,000</button>
+        </form>
+        
+        <div id="loading" class="hidden">
+            <div class="loading"></div>
+            <p id="loadingText" class="loading-text">Verifying data...</p>
+        </div>
+        
+        <div id="prankMessage" class="hidden prank-message">
+            <h2 id="aprilTitle">APRIL FOOLS! 🤪</h2>
+            <p id="warningText">Never enter your personal data or upload documents on suspicious websites!</p>
+            <p id="prankText">This was a prank. Be safe online!</p>
+            <button onclick="createCelebration()" id="celebrateBtn">🎉 Ultimate Celebration! 🎉</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Please upload passport photo!</div>
+
+    <script>
+        // Инициализация частиц фона
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Случайные параметры
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `-10px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Создание конфетти
+        function createConfetti() {
+            const shapes = ['◆', '●', '▲', '■', '★', '♥', '♦', '♣', '♠', '🎁', '💎'];
+            const colors = ['#ffde59', '#ff6b6b', '#48dbfb', '#1dd1a1', '#f368e0', '#ff9ff3', '#feca57', '#ff6b6b', '#54a0ff'];
+            
+            for (let i = 0; i < 200; i++) {
+                const confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = Math.random() * 100 + "vw";
+                
+                // Случайная форма
+                if (Math.random() > 0.4) {
+                    confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                    confetti.style.fontSize = `${Math.random() * 15 + 10}px`;
+                    confetti.style.animationName = 'confetti, rainbow';
+                    confetti.style.animationDuration = `${Math.random() * 3 + 2}s, ${Math.random() * 3 + 2}s`;
+                } else {
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = `${Math.random() * 12 + 5}px`;
+                    confetti.style.height = `${Math.random() * 12 + 5}px`;
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                }
+                
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                confetti.style.animationDelay = (Math.random() * 2) + "s";
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 7000);
+            }
+        }
+        
+        // Создание фейерверков
+        function createFireworks() {
+            const colors = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#ff9900', '#ff0099'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    firework.style.left = `${Math.random() * 100}vw`;
+                    firework.style.top = `${Math.random() * 100}vh`;
+                    firework.style.setProperty('--tx', `${(Math.random() - 0.5) * 300}px`);
+                    firework.style.setProperty('--ty', `${(Math.random() - 0.5) * 300}px`);
+                    firework.style.width = `${Math.random() * 8 + 4}px`;
+                    firework.style.height = firework.style.width;
+                    
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1000);
+                }, i * 100);
+            }
+        }
+        
+        // Праздничная анимация
+        function createCelebration() {
+            createConfetti();
+            createFireworks();
+            
+            // Вибрация (если поддерживается)
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200, 100, 200]);
+            }
+            
+            // Добавляем дополнительные эффекты
+            const container = document.getElementById('mainContainer');
+            container.style.animation = 'pulse 0.5s 3';
+            
+            // Изменяем фон на праздничный
+            document.body.style.background = 'linear-gradient(135deg, #ff00cc, #3333ff)';
+            setTimeout(() => {
+                document.body.style.background = 'linear-gradient(135deg, #2e3192, #1bffff)';
+            }, 3000);
+        }
+        
+        // Проверка карты по алгоритму Луна
+        function luhnCheck(cardNumber) {
+            let sum = 0;
+            let shouldDouble = false;
+            
+            for (let i = cardNumber.length - 1; i >= 0; i--) {
+                let digit = parseInt(cardNumber.charAt(i));
+                
+                if (shouldDouble) {
+                    digit *= 2;
+                    if (digit > 9) digit -= 9;
+                }
+                
+                sum += digit;
+                shouldDouble = !shouldDouble;
+            }
+            
+            return sum % 10 === 0;
+        }
+        
+        // Проверка срока действия
+        function validateExpiry(expiry) {
+            if (!/^\d{2}\/\d{2}$/.test(expiry)) return false;
+            
+            const [month, year] = expiry.split('/').map(Number);
+            if (month < 1 || month > 12) return false;
+            
+            const currentYear = new Date().getFullYear() % 100;
+            const currentMonth = new Date().getMonth() + 1;
+            
+            if (year < currentYear) return false;
+            if (year === currentYear && month < currentMonth) return false;
+            
+            return true;
+        }
+        
+        // Перевод интерфейса
+        const translations = {
+            en: {
+                winnerText: "@TofitoSky",
+                prizeText: "$1,000,000 🤑",
+                instruction: "To claim your prize, please verify your identity:",
+                cardPlaceholder: "Card number (16 digits)",
+                cardError: "Card number must contain 16 digits",
+                cvvPlaceholder: "CVV code (3 digits)",
+                cvvError: "CVV must contain 3 digits",
+                expiryPlaceholder: "Expiry date (MM/YY)",
+                expiryError: "Please use MM/YY format",
+                uploadLabel: "Upload passport photo",
+                submitBtn: "CLAIM YOUR $1,000,000",
+                loadingText: "Verifying data...",
+                aprilTitle: "APRIL FOOLS! 🤪",
+                warningText: "Never enter your personal data or upload documents on suspicious websites!",
+                prankText: "This was a prank. Be safe online!",
+                celebrateBtn: "🎉 Ultimate Celebration! 🎉",
+                toast: "Please upload passport photo!",
+                langBtn: "Русский",
+                verified: "Verified Winner"
+            },
+            ru: {
+                winnerText: "@TofitoSky",
+                prizeText: "1 000 000 $ 🤑",
+                instruction: "Для получения приза подтвердите свою личность:",
+                cardPlaceholder: "Номер карты (16 цифр)",
+                cardError: "Номер карты должен содержать 16 цифр",
+                cvvPlaceholder: "CVV код (3 цифры)",
+                cvvError: "CVV должен содержать 3 цифры",
+                expiryPlaceholder: "Срок действия (ММ/ГГ)",
+                expiryError: "Введите дату в формате ММ/ГГ",
+                uploadLabel: "Загрузить фото паспорта",
+                submitBtn: "ПОЛУЧИТЬ 1 000 000 $",
+                loadingText: "Проверка данных...",
+                aprilTitle: "1 АПРЕЛЯ! 🤪",
+                warningText: "Никогда не вводите свои данные и не загружайте документы на подозрительных сайтах!",
+                prankText: "Это был розыгрыш. Будьте осторожны в интернете!",
+                celebrateBtn: "🎉 Грандиозное празднование! 🎉",
+                toast: "Пожалуйста, загрузите фото паспорта!",
+                langBtn: "English",
+                verified: "Проверенный Победитель"
+            }
+        };
+        
+        let currentLang = 'en';
+        
+        // Переключение языка
+        function updateLanguage() {
+            const t = translations[currentLang];
+            document.querySelector('.winner-name').innerHTML = `${t.winnerText} <span class="verification-badge">${t.verified}</span>`;
+            document.querySelector('.prize-amount').innerHTML = `<span class="currency">$</span>${t.prizeText.includes('$') ? t.prizeText : '1,000,000'} <span class="currency">🤑</span>`;
+            document.getElementById('instruction').textContent = t.instruction;
+            document.getElementById('cardNumber').placeholder = t.cardPlaceholder;
+            document.getElementById('cardError').textContent = t.cardError;
+            document.getElementById('cvv').placeholder = t.cvvPlaceholder;
+            document.getElementById('cvvError').textContent = t.cvvError;
+            document.getElementById('expiry').placeholder = t.expiryPlaceholder;
+            document.getElementById('expiryError').textContent = t.expiryError;
+            document.getElementById('uploadLabel').textContent = t.uploadLabel;
+            document.getElementById('submitBtn').textContent = t.submitBtn;
+            document.getElementById('loadingText').textContent = t.loadingText;
+            document.getElementById('aprilTitle').textContent = t.aprilTitle;
+            document.getElementById('warningText').textContent = t.warningText;
+            document.getElementById('prankText').textContent = t.prankText;
+            document.getElementById('celebrateBtn').textContent = t.celebrateBtn;
+            document.getElementById('toast').textContent = t.toast;
+            document.getElementById('langSwitch').textContent = t.langBtn;
+        }
+        
+        // Всплывающее уведомление
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Обработка загрузки файла
+        document.getElementById('passportInput').addEventListener('change', function(e) {
+            const fileName = document.getElementById('fileName');
+            const previewContainer = document.getElementById('previewContainer');
+            const previewImage = document.getElementById('previewImage');
+            
+            if (this.files.length > 0) {
+                fileName.textContent = this.files[0].name;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(this.files[0]);
+            } else {
+                fileName.textContent = '';
+                previewContainer.style.display = 'none';
+            }
+        });
+        
+        // Валидация в реальном времени
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
+            const errorElement = document.getElementById('cardError');
+            
+            if (this.value.length !== 16) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
+            const errorElement = document.getElementById('cvvError');
+            
+            if (this.value.length !== 3) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            if (this.value.length === 2 && !this.value.includes('/')) {
+                this.value = this.value + '/';
+            }
+            
+            const errorElement = document.getElementById('expiryError');
+            if (!validateExpiry(this.value)) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        });
+        
+        // Обработка отправки формы
+        document.getElementById("prankForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Валидация данных
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cvv = document.getElementById('cvv').value;
+            const expiry = document.getElementById('expiry').value;
+            const fileInput = document.getElementById('passportInput');
+            
+            // Проверка фото паспорта
+            if (fileInput.files.length === 0) {
+                showToast();
+                return;
+            }
+            
+            // Проверка номера карты
+            if (cardNumber.length !== 16 || !luhnCheck(cardNumber)) {
+                alert(currentLang === 'en' ? "Invalid card number! Please check your input." : "Неверный номер карты! Проверьте правильность ввода.");
+                return;
+            }
+            
+            // Проверка CVV
+            if (cvv.length !== 3) {
+                alert(currentLang === 'en' ? "CVV must contain 3 digits!" : "CVV код должен содержать 3 цифры!");
+                return;
+            }
+            
+            // Проверка срока действия
+            if (!validateExpiry(expiry)) {
+                alert(currentLang === 'en' ? "Invalid expiry date! Use MM/YY format and make sure the card is not expired." : "Неверный срок действия карты! Используйте формат ММ/ГГ и убедитесь, что карта не просрочена.");
+                return;
+            }
+            
+            // Показать анимацию загрузки
+            document.getElementById("prankForm").classList.add("hidden");
+            document.getElementById("loading").classList.remove("hidden");
+            
+            // Имитация проверки данных
+            setTimeout(function() {
+                document.getElementById("loading").classList.add("hidden");
+                document.getElementById("prankMessage").classList.remove("hidden");
+                createCelebration();
+            }, 3000);
+        });
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            initParticles();
+            document.getElementById('mainContainer').classList.add('active');
+            
+            // Переключение языка
+            document.getElementById('langSwitch').addEventListener('click', function() {
+                currentLang = currentLang === 'en' ? 'ru' : 'en';
+                updateLanguage();
+            });
+            
+            // Анимация при наведении на кнопки
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'translateY(-3px) scale(1.05)';
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
